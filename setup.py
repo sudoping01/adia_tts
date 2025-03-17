@@ -16,7 +16,7 @@ setup(
     author="sudoping01",
     author_email="sudoping01@gmail.com",  
     description="adia tts inference package, that allow to avoid the the model limitation with easy inference",
-    long_description=open("README.md", "r", encoding="utf-8").read() if open("README.md", "r", encoding="utf-8") else "",
+    long_description=""#open("README.md", "r", encoding="utf-8").read() if open("README.md", "r", encoding="utf-8") else "",
     long_description_content_type="text/markdown",
     url="https://github.com/sudoping01/adia-tts",  
     classifiers=[
