@@ -170,7 +170,7 @@ class AdiaTTS:
         
             if config is None:
                 config = {
-                    "temperature": 0.8,
+                    "temperature": 0.01,
                     "max_new_tokens": 1000,
                     "do_sample": True,
                     "top_k": 50,
