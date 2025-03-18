@@ -1,27 +1,20 @@
 # Adia TTS - Wolof Text-to-Speech
+# Adia TTS
 
-A Python package for Text-to-Speech synthesis in the Wolof language powered by CONCREE's Adia_TTS model.
+A Python package for Wolof text-to-speech synthesis.
 
-## Features
-
-- High-quality Wolof language speech synthesis
-- Intelligent text segmentation for natural-sounding long-form content
-- Adaptive audio concatenation with smooth crossfading between segments
-- Support for both single utterances and long-form text
-- Simple, flexible API for integration into any Python application
+## Overview
+Adia TTS is the most accurate open-source text-to-speech model for the Wolof language, at the moment of writing this readme. This package provides easy inference capabilities while addressing the model's input size limitations. The core functionality includes a segmentation strategy that allows the model to handle long sentences, making it suitable for conversational agents and extended speech synthesis applications.
 
 ## Installation
 
 ```bash
-# Install from PyPI (when available)
-pip install adia-tts
 
-# Or install from GitHub
-pip install git+https://github.com/CONCREE/adia-tts.git
+pip install git+https://github.com/sudoping01/adia_tts.git 
 
 # For development
-git clone https://github.com/CONCREE/adia-tts.git
-cd adia-tts
+git clone git+https://github.com/sudoping01/adia_tts.git
+cd adia_tts
 pip install -e .
 ```
 
@@ -87,7 +80,7 @@ print(f"Audio saved to: {combined_path}")
 
 ## Customizing Voice Generation
 
-Fine-tune the speech generation with various parameters:
+the speech generation parameters:
 
 ```python
 # Voice generation configuration
@@ -101,49 +94,12 @@ config = {
 
 # Apply custom configuration
 output_path, _ = tts.synthesize(
-    text="Custom voice configuration example",
+    text="your text here",
     description="A gentle male voice with clear articulation",
     config=config
 )
 ```
 
-## Advanced Usage
 
-### GPU Acceleration
-
-The package automatically uses CUDA if available:
-
-```python
-# Check device being used
-tts = AdiaTTS()
-device_info = tts.get_device_info()
-print(f"Using: {device_info['device']}")
-print(f"GPU: {device_info['gpu_name']}" if device_info['gpu_available'] else "CPU only")
-```
-
-### HuggingFace Authentication
-
-For models requiring authentication:
-
-```python
-# Using environment variable
-import os
-os.environ['HF_TOKEN'] = 'your_huggingface_token'
-tts = AdiaTTS()
-
-# Or pass directly
-tts = AdiaTTS(hf_token="your_huggingface_token")
-```
-
-## Requirements
-
-- Python 3.8+
-- PyTorch
-- transformers
-- parler-tts
-- soundfile
-- numpy
-
-## License
 
 [MIT License](LICENSE)
