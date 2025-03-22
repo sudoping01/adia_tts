@@ -1,15 +1,14 @@
 # Adia TTS - Wolof Text-to-Speech
-# Adia TTS
 
-A Python package for Wolof text-to-speech synthesis.
+A Python package for high-quality Wolof speech synthesis.
 
 ## Overview
-Adia TTS is the most accurate open-source text-to-speech model for the Wolof language, at the moment of writing this readme. This package provides easy inference capabilities while addressing the model's input size limitations. The core functionality includes a segmentation strategy that allows the model to handle long sentences, making it suitable for conversational agents and extended speech synthesis applications.
+[Adia TTS](https://huggingface.co/CONCREE/Adia_TTS) is the most accurate open-source text-to-speech model for the Wolof language, at the moment of writing this readme. This package provides easy inference capabilities while addressing the model's input size limitations. The core functionality includes a segmentation strategy that allows the model to handle long sentences, making it suitable for conversational agents and extended speech synthesis applications.
 
 ## Installation
 
 ```bash
-
+# Standard installation
 pip install git+https://github.com/sudoping01/adia_tts.git 
 
 # For development
@@ -20,86 +19,74 @@ pip install -e .
 
 ## Quick Start
 
-### Basic Text-to-Speech
+### Basic Usage
 
 ```python
 from adia_tts import AdiaTTS
 
-# Initialize the model
-tts = AdiaTTS()
+# Initialize model
+tts = AdiaTTS() # you can define your output_dir like tts = AdiaTTS(output_dir = "/home/sudoping01/audios")
 
-# Synthesize speech
+# Generate speech
 output_path, audio_array = tts.synthesize(
-    text="Salaam aleekum, nanga def?",
-    description="A warm and natural voice, with a conversational flow"
-)
+    text="Entreprenariat ci Senegal dafa am solo lool ci yokkuteg koom-koom, di gëna yokk liggéey ak indi gis-gis yu bees ci dëkk bi."
 
+,
+    description= "A clear and educational voice, with a flow adapted to learning"
+)
 print(f"Audio saved to: {output_path}")
 ```
 
-### Processing Long Text
-
-The package automatically handles long text by breaking it at natural pauses:
+### Long Text Processing
 
 ```python
-from adia_tts import AdiaTTS
-
-# Initialize the model
-tts = AdiaTTS()
-
-# Process long text with automatic segmentation
-combined_path, segment_paths = tts.batch_synthesize(
+# Automatic segmentation for long text
+output_path, _ = tts.synthesize(
     text="Your long Wolof text here...",
-    description="A warm and natural voice, with a conversational flow"
+    description= "A clear and educational voice, with a flow adapted to learning"
 )
-
-print(f"Combined audio saved to: {combined_path}")
-
-# Optional: Clean up individual segment files
-tts.cleanup_temp_files(segment_paths)
 ```
 
-### Reading from a File
-
-Process entire text files with a single function call:
+### File Processing
 
 ```python
-from adia_tts import AdiaTTS
-
-# Initialize the model with custom output directory
+# Process text files directly
 tts = AdiaTTS(output_dir="./my_audio_files")
-
-# Convert text file to speech
-combined_path, segment_paths = tts.synthesize_from_file(
-    file_path="your_text_file.txt",
-    description="A warm and natural voice, with a conversational flow"
+audio_path = tts.synthesize_from_file(
+    file_path="your_text_file.txt"
 )
-
-print(f"Audio saved to: {combined_path}")
 ```
 
-## Customizing Voice Generation
-
-the speech generation parameters:
+## Customization
 
 ```python
-# Voice generation configuration
+# Voice configuration options
 config = {
-    "temperature": 0.01,       # Lower for more consistent output
-    "max_new_tokens": 1000,    # Maximum length of generated audio
-    "do_sample": True,         # Enable sampling for more natural speech
-    "top_k": 50,               # Sampling from top k tokens
-    "repetition_penalty": 1.2  # Reduces repetitive patterns
+    "temperature": 0.01,       # Lower = more consistent
+    "max_new_tokens": 1000,    # Maximum audio length
+    "do_sample": True,         # Enable natural speech sampling
+    "top_k": 50,               # Sampling parameter
+    "repetition_penalty": 1.2  # Prevent repetition
 }
 
-# Apply custom configuration
+# Apply custom settings
 output_path, _ = tts.synthesize(
-    text="your text here",
-    description="A gentle male voice with clear articulation",
+    text="Your text here",
+    description="A gentle male voice",
     config=config
 )
 ```
 
+### Environment Information
 
+```python
+# Check runtime environment
+device_info = tts.get_device_info()
+print(f"Running on: {device_info['device']}")
+print(f"GPU available: {device_info['gpu_available']}")
+```
+
+
+## License
 
 [MIT License](LICENSE)
